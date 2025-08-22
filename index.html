@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To My Love Anis Maisarah</title>
+  <style>
+    /* General Styles */
+    :root {
+      --primary-color: #ff4d8d;
+      --secondary-color: #ff99c8;
+      --accent-color: #d44dff;
+      --text-color: #fff;
+      --card-bg: rgba(255, 255, 255, 0.15);
+      --card-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee, #fddde6);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      color: var(--text-color);
+    }
+
+    @keyframes gradient {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .page {
+      display: none;
+      height: 100vh;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      position: absolute;
+      top: 0; left: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      overflow-y: auto;
+      padding: 20px;
+      z-index: 1;
+    }
+    .page.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      position: relative;
+      display: inline-block;
+    }
+    
+    h1:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 3px;
+      background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-color);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    p {
+      max-width: 600px;
+      margin: 20px auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--text-color);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .content-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 20px 0;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      max-width: 700px;
+      width: 90%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    button {
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      padding: 12px 28px;
+      margin: 5px;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      font-weight: 600;
+      color: var(--primary-color);
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+    
+    button:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: 0.5s;
+    }
+    
+    button:hover:before {
+      left: 100%;
+    }
+    
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 20px rgba(0,0,0,0.2);
+      background: #fff;
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: fixed;
+      bottom: -50px;
+      color: rgba(255, 105, 180, 0.7);
+      font-size: 24px;
+      animation: floatUp 8s linear infinite;
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+    
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.8) rotate(0deg);
+        opacity: 0.8;
+      }
+      50% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.5) rotate(20deg);
+        opacity: 0;
+      }
+    }
+
+    /* Music Control Button */
+    #musicControl {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      transition: all 0.3s ease;
+      z-index: 100;
+      color: var(--primary-color);
+    }
+    
+    #musicControl:hover {
+      transform: scale(1.1) rotate(360deg);
+      background: #fff;
+    }
+
+    /* Gallery */
+    .gallery-section {
+      width: 100%;
+      max-width: 1000px;
+      margin: 30px auto;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .gallery-section h2 {
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      color: #fff;
+      position: relative;
+      display: inline-block;
+      padding: 0 15px;
+    }
+    
+    .gallery-section h2:before,
+    .gallery-section h2:after {
+      content: '✦';
+      margin: 0 10px;
+      color: var(--secondary-color);
+    }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 0 10px;
+    }
+    
+    .card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.6s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .card.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .card-title {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  color: #fff; /* white for contrast against pastel bg */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+    
+    .card img, .card video {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    
+    .card:hover img, 
+    .card:hover video {
+      transform: scale(1.05);
+    }
+    
+    .card audio {
+      width: 100%;
+      outline: none;
+      padding: 15px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+    
+    .modal-content {
+      max-width: 90%;
+      max-height: 80%;
+      background: #000;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 50px rgba(255, 105, 180, 0.3);
+    }
+    
+    .modal-content img, 
+    .modal-content video {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      background: rgba(0,0,0,0.5);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1001;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      .content-card {
+        padding: 20px;
+        width: 95%;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+      }
+      
+      button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .button-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      button {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="audios/audio1.mp3" type="audio/mpeg">
+  </audio>
+  <button id="musicControl">⏸</button>
+
+  <!-- Cover Page -->
+  <div class="page active" id="cover">
+    <div class="content-card">
+      <h1>To My Dearest Love Nur Anis Maisarah</h1>
+      <p>A special card created just for you 💖</p>
+      <div class="button-container">
+        <button onclick="goToPage('letter', true)">Open My Heart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Letter Page -->
+  <div class="page" id="letter">
+    <div class="content-card">
+      <br>
+     <br>
+      <br>
+       <br>
+        <br>
+         <br>
+          <br>
+           <br>
+            <br>
+             <br>
+              <br>
+               <br>
+                <br>
+                 <br>
+                  <br>
+                   <br>
+                    <br>
+                     <br>
+                      <br>
+                       <br>
+                        <br>
+                         <br>
+                         <br>
+                         <br>
+                         <br>
+                         <br>
+                         <br>
+                         <br>
+                         <br>
+      <h1>My Letter to You</h1>
+      <p>
+    My dearest Nur Anis Maisarah,<br><br>
+    This is me, your baby… I’m sitting here, struggling with where to start, because my heart is overflowing with things I’ve wanted to tell you for so long 💭. I guess I’ll begin with the truth that should have been spoken since the very first day we met you are the most beautiful gift in my life 🎁. You are irreplaceable, my sunshine on cloudy days ☀️, and the rainbow that appeared when I thought my sky would always be gray 🌈.<br><br>
+    I know I have failed you 😔. I know my words and actions haven’t always shown the love I carry for you. There are times when I let pride, assumptions, and impatience guide me, and in doing so, I hurt you 💔. For that, I am truly, deeply sorry 🙏. Please believe me when I say I never meant to cause you pain.<br><br>
+    The truth is, every moment I disappointed you has been a weight on my heart 💧. I replay things in my mind and realize how I should have listened better, loved louder, and cared deeper. You are the one I never want to see hurt yet I was the reason for your tears 😢, and that is something I regret more than words can ever explain.<br><br>
+      But even through the mistakes, my love for you has never faded 🌹. I still see us… I still see our love, our laughter, our dreams, and our bond that nothing can truly break 🌟. I believe, deep down, you still hold that piece of us too. And that is why I’m writing to you now because I don’t want to give up on us, not now, not ever 💌.<br><br>
+     You are the person who makes my world brighter ✨, the one I pray for, the one I cherish, the one I am most afraid of losing 💖. I love you sincerely, with every beat of my heart 💓. And I want to spend my days proving to you that this love is real, strong, and worth holding on to.<br><br>
+      So let’s try again, my love 🤗. Let’s start fresh, with lessons learned and hearts wide open. I promise you, this time will be different 🌷. I will listen more, love harder, and remind you every single day how much you mean to me 💕.<br><br>
+      Forever and always, I will be yours… I will always be your Nur Anis Maisarah 🥰.<br><br>
+      </p>
+      <div class="button-container">
+        <button onclick="goToPage('cover', false)">⬅ Back</button>
+        <button onclick="goToPage('gallery', false)">Our Memories ➡</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery Page -->
+  <div class="page" id="gallery">
+    <br>
+     <br>
+      <br>
+       <br>
+        <br>
+         <br>
+          <br>
+           <br>
+            <br>
+             <br>
+              <br>
+               <br>
+                <br>
+                 <br>
+                  <br>
+                   <br>
+                    <br>
+                     <br>
+                      <br>
+                       <br>
+                        <br>
+                         <br>
+     <br>
+      <br>
+       <br>
+        <br>
+         <br>
+          <br>
+           <br>
+            <br>
+             <br>
+              <br>
+               <br>
+                <br>
+                 <br>
+                  <br>
+                   <br>
+                    <br>
+                     <br>
+                      <br>
+                       <br>
+                        <br>
+                         <br>
+     <br>
+      <br>
+       <br>
+        <br>
+         <br>
+          <br>
+           <br>
+            <br>
+             <br>
+              <br>
+               <br>
+                <br>
+                 <br>
+                  <br>
+                   <br>
+                    <br>
+                     <br>
+                      <br>
+                       <br>
+                        <br>
+                         <br>
+     <br>
+      <br>
+       <br>
+        <br>
+         <br>
+          <br>
+           <br>
+            <br>
+             <br>
+              <br>
+               <br>
+                <br>
+                 <br>
+                  <br>
+                   <br>
+                    <br>
+                     <br>
+                      <br>
+                       <br>
+                        <br>
+    <h1>Our Precious Memories</h1>
+
+    <div class="gallery-section">
+      <h2>Our Memories In Photos ✨</h2>
+      <div class="gallery-grid">
+        <div class="card"><img src="images/photo4.jpg" alt="Memory 1" onclick="openModal(this)"><p class="card-title">29 Apr 2025</p></div>
+        <div class="card"><img src="images/photo5.jpg" alt="Memory 2" onclick="openModal(this)"><p class="card-title">22 Jun 2025</p></div>
+        <div class="card"><img src="images/photo8.jpg" alt="Memory 3" onclick="openModal(this)"><p class="card-title">3 Aug 2025</p></div>
+        <div class="card"><img src="images/photo6.jpg" alt="Memory 3" onclick="openModal(this)"><p class="card-title">8 Aug 2025</p></div>
+        <div class="card"><img src="images/photo5.jpg" alt="Memory 3" onclick="openModal(this)"><p class="card-title">8 Aug 2025</p></div>
+        <div class="card"><img src="images/photo7.jpg" alt="Memory 3" onclick="openModal(this)"><p class="card-title">9 Aug 2025</p></div>
+      </div>
+    </div>
+
+    <div class="gallery-section">
+      <h2>Our Memories In Videos 🫶🏻</h2>
+      <div class="gallery-grid">
+        <div class="card"><video controls onclick="openModal(this)"><source src="videos/video1.mp4" type="video/mp4"><p class="card-title">9 Aug 2025</p></video></div>
+        <div class="card"><video controls onclick="openModal(this)"><source src="videos/video2.mp4" type="video/mp4"><p class="card-title">9 Aug 2025</p></video></div>
+        <div class="card"><video controls onclick="openModal(this)"><source src="videos/video3.mp4" type="video/mp4"><p class="card-title">9 Aug 2025</p></video></div>
+        <div class="card"><video controls onclick="openModal(this)"><source src="videos/video4.mp4" type="video/mp4"><p class="card-title">9 Aug 2025</p></video></div>
+        <div class="card"><video controls onclick="openModal(this)"><source src="videos/video5.MP4" type="video/mp4"><p class="card-title">9 Aug 2025</p></video></div>
+        <div class="card"><video controls onclick="openModal(this)"><source src="videos/video6.MP4" type="video/mp4"><p class="card-title">9 Aug 2025</p></video></div>
+        <div class="card"><video controls onclick="openModal(this)"><source src="videos/video7.MOV" type="video/mp4"><p class="card-title">9 Aug 2025</p></video></div>
+        <div class="card"><video controls onclick="openModal(this)"><source src="videos/video8.MOV" type="video/mp4"><p class="card-title">9 Aug 2025</p></video></div>
+        <div class="card"><video controls onclick="openModal(this)"><source src="videos/video9.MOV" type="video/mp4"><p class="card-title">9 Aug 2025</p></video></div>
+        
+      </div>
+    </div>
+
+    <div class="gallery-section">
+      <h2>Song We Love 🐈‍⬛</h2>
+      <div class="gallery-grid">
+        <div class="card"><iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/2sSGPbdZJkaSE2AbcGOACx?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></iframe></div>
+        <div class="card"><iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/5069JTmv5ZDyPeZaCCXiCg?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></iframe></div>
+        <div class="card"><iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/1QAJqy2dA3ihHBFIHRphZj?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+        <div class="card"><iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/4cgBCGxtlfap2g6jveB7du?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+        <div class="card"><iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/3tMTXQyRrPmMyHv5SoC0TV?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+        <div class="card"><iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/6tZTfTxz3pcoIvrvSXtk2h?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button onclick="goToPage('letter', false)">⬅ Back to Letter</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" onclick="closeModal()">
+    <div class="close-modal" onclick="closeModal()">×</div>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <script>
+    const pages = document.querySelectorAll('.page');
+    const music = document.getElementById('bgMusic');
+    const musicControl = document.getElementById('musicControl');
+    let isPlaying = false;
+
+    function goToPage(pageId, startMusic=false) {
+      pages.forEach(p => p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+
+      if (pageId === 'letter' && startMusic) {
+        music.play().catch(e => console.log("Audio play failed:", e));
+        isPlaying = true;
+        musicControl.style.display = 'flex';
+        musicControl.innerText = "⏸";
+      } else if (pageId !== 'letter') {
+        music.pause();
+        isPlaying = false;
+        musicControl.style.display = 'none';
+      }
+      
+      // Scroll to top when changing pages
+      window.scrollTo(0, 0);
+    }
+
+    musicControl.addEventListener('click', () => {
+      if (isPlaying) {
+        music.pause();
+        isPlaying = false;
+        musicControl.innerText = "▶";
+      } else {
+        music.play().catch(e => console.log("Audio play failed:", e));
+        isPlaying = true;
+        musicControl.innerText = "⏸";
+      }
+    });
+
+    // Floating hearts - fixed implementation
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = Math.random() > 0.5 ? '❤' : '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+      heart.style.animationDuration = (6 + Math.random() * 6) + 's';
+      document.body.appendChild(heart);
+
+      // Remove heart after animation completes
+      setTimeout(() => {
+        if (heart.parentNode) {
+          heart.parentNode.removeChild(heart);
+        }
+      }, 12000);
+    }
+    
+    // Start creating hearts immediately and continue on all pages
+    const heartInterval = setInterval(createHeart, 400);
+    
+    // Create initial hearts
+    for (let i = 0; i < 15; i++) {
+      setTimeout(createHeart, 100 * i);
+    }
+
+    // Gallery animations
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {threshold: 0.1});
+    
+    cards.forEach(card => observer.observe(card));
+
+    // Modal
+    function openModal(el) {
+      const modal = document.getElementById('modal');
+      const content = document.getElementById('modalContent');
+      content.innerHTML = "";
+      const clone = el.cloneNode(true);
+      if (clone.tagName === 'VIDEO') {
+        clone.controls = true;
+      }
+      content.appendChild(clone);
+      modal.style.display = "flex";
+    }
+    
+    function closeModal() {
+      document.getElementById('modal').style.display = "none";
+    }
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeModal();
+    });
+
+    // Initialize with some hearts already floating
+    window.addEventListener('load', function() {
+      for (let i = 0; i < 10; i++) {
+        createHeart();
+      }
+    });
+  </script>
+</body>
+</html>
